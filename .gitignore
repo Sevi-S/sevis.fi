@@ -1,0 +1,8 @@
+*.swp
+*.swo
+*~
+.env*
+*.pem
+*.key
+id_*
+*.pub
