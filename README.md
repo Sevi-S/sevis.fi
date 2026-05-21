@@ -1,6 +1,6 @@
 # sevis.fi
 
-Personal website. Deployed automatically to Hetzner VPS via GitHub Actions on push to `main`.
+[sevis.fi](https://sevis.fi) — personal website. Deployed automatically to Hetzner VPS via GitHub Actions on push to `main`.
 
 ## Structure
 
