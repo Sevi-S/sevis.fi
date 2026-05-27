@@ -11,6 +11,11 @@
       margin: 0 auto;
       padding: 5rem 2rem 3rem;
     }
+    article {
+      border: 1px solid var(--accent);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
 
   </style>
 </head>
@@ -35,6 +40,7 @@
     <main>
       <h1>Devlog</h1>
 
+      <article>
       <h2>Heal Bot</h2>
       <p>A healer-only RPG where you keep everyone alive.</p>
 
@@ -63,6 +69,30 @@
       <p>In development. Pre-alpha playtest coming soon.</p>
 
       <p><a href="https://discord.gg/placeholder">Join the Discord</a></p>
+      </article>
+
+      <article>
+      <h2>Setting Up CI/CD for a Solo Godot Project (For Free)</h2>
+      <p>I spent an evening setting up automated testing and release builds for Heal Bot. The goal: push a tag, get tested binaries for Linux/Windows/macOS on GitHub Releases, and a Discord notification. All self-hosted, zero monthly cost.</p>
+
+      <h3>Why Bother?</h3>
+      <p>Solo dev doesn't mean solo QA. I have 47 automated tests that catch broken spells, corrupt saves, missing resources, and combat logic bugs. Every push to main runs them. If I break something at 2am, I know before my playtesters do.</p>
+
+      <h3>The Setup</h3>
+      <p>A Docker container on my TrueNAS NAS runs a GitHub Actions self-hosted runner. Inside: Fedora 41, Godot 4.5.1 headless, and export templates for all three platforms. It idles at ~50MB RAM and picks up jobs the moment GitHub dispatches them.</p>
+      <p>The pipeline:</p>
+<pre>Push to main → run 47 tests → pass/fail on GitHub
+Push a tag   → run tests → export builds → create GitHub Release → post to Discord</pre>
+      <p>Cross-compilation works out of the box. Linux, Windows, and macOS builds all export from the same Linux container. macOS builds are unsigned (playtesters right-click → Open), which is fine for now.</p>
+
+      <h3>The Test Framework</h3>
+      <p>I wrote a minimal test runner in GDScript with no external dependencies. Drop a <code>test_*.gd</code> file in the tests directory, add methods starting with <code>test_</code>, return true or an error string. Auto-discovered, runs headless, exits with code 0 or 1 for CI.</p>
+      <p>There's also a coverage guard: if I add a new spell <code>.tres</code> file without adding a corresponding test, CI fails and tells me what's untested. Forced accountability.</p>
+
+      <h3>Was It Worth It?</h3>
+      <p>For a solo project? Honestly, the tests are more valuable than the pipeline. Catching a broken save format or a spell that silently does nothing is hours of debugging saved. The release pipeline is just convenience on top.</p>
+      <p>But the real win: my playtest friend gets a Discord ping with download links the moment I tag a release. No "hey can you download this zip I uploaded somewhere." Professional workflow, hobby project.</p>
+      </article>
     </main>
   </div>
 </body>
